@@ -1,0 +1,9 @@
+extends ./../layout
+
+block content
+
+  h1 These are our products
+  ul
+    each product in products
+      li
+        a(href="/products") Grab a #{product.name} for just $#{product.id}!

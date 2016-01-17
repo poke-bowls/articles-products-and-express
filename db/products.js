@@ -1,8 +1,27 @@
 module.exports = (function(){
-  var products = [];
+  var products = [{
+    name: "fat cat",
+    price: 5000,
+    inventory: 3,
+    id: 1
+  },
+  {
+    name: "fat child",
+    price: 1000,
+    inventory:1,
+    id: 2
+  },
+  {
+    name: "fat meatwad",
+    price: 20,
+    inventory: 50,
+    id: 3
+  }];
   var counter = 0;
   var keys = [];
-
+  function _all(){
+    return products;
+  }
 
   function _add( obj ) {
     if( products.every( function( element ) {
@@ -47,11 +66,18 @@ module.exports = (function(){
     return changeIt;
   }
 
+  function _deleteById( number ) {
+    products.splice(products.indexOf(this.getById(number), 1));
+  }
+
   return {
-    products: products,
+    all: _all,
     keys: keys,
     add: _add,
     getByName: _getByName,
-    editByName: _editByName
+    editByName: _editByName,
+    getById: _getById,
+    editById: _editById,
+    deleteById: _deleteById
   };
 })();

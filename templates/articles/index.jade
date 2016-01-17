@@ -1,0 +1,9 @@
+extends ./../layout
+
+block content
+
+  h1 These are our articles
+  ul
+    each article in articles
+      li
+        a(href="/products") Grab a #{article.title} by $#{article.urlTitle}!
