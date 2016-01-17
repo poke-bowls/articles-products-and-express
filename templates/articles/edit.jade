@@ -1,0 +1,11 @@
+form(method="PUT")#form1
+  p name:
+    input(type='text' value='#{articles.title}')
+  br
+  p price:
+    input(type='text' value='#{articles.body}')
+  br
+  p inventory:
+    input(type='text' value='#{articles.author}')
+  br
+  button(type="submit" form="form1" value="Submit")#submit Submit

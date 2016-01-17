@@ -1,10 +1,12 @@
-form
+form(method="POST" action="/products/#{product.id}" enctype="application/x-www-form-urlencoded")#form1
+  input(type="hidden" name="_method" value="PUT")
   p name:
-    input(type='text' value='#{product.name}')
+    input(type='text' value='#{product.name}' name="name")
   br
   p price:
-    input(type='text' value='#{product.price}')
+    input(type='text' value='#{product.price}' name="price")
   br
   p inventory:
-    input(type='text' value='#{product.inventory}')
+    input(type='text' value='#{product.inventory}' name="inventory")
   br
+  button(type="submit" form="form1" value="Submit")#submit Submit

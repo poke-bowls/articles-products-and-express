@@ -26,7 +26,6 @@ router.route('/')
       productMod.add( req.body );
 
       res.send({ "success": true });
-      console.log(productMod.products);
     } else {
       res.send({ "success": false });
     }
@@ -34,10 +33,10 @@ router.route('/')
 
 router.route('/:id')
   .put( bodyReqinTransformerBrah, function( req, res ) {
-    for( var k = 0; k < productMod.products.length; k++ ) {
-      if( parseInt(req.params.id) === productMod.products[k].id ) {
+    for( var k = 0; k < productMod.all().length; k++ ) {
+      if( parseInt(req.params.id) === productMod.all()[k].id ) {
         for( var keys in req.body ) {
-          productMod.products[k][keys] = req.body[keys];
+          productMod.all()[k][keys] = req.body[keys];
         }
         return res.send( { 'success' : true } );
       }
@@ -57,6 +56,11 @@ router.route('/:id/edit')
     res.render('products/edit', {
       product : productMod.getById(parseInt(req.params.id))
     });
+  });
+
+router.route('/new')
+  .get(function(req, res){
+    res.render('products/new');
   });
 
 module.exports = router;
