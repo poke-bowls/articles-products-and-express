@@ -1,12 +1,12 @@
-form(method="POST" action="/products/#{product.id}" enctype="application/x-www-form-urlencoded")#form1
-  input(type="hidden" name="_method" value="PUT")
-  p name:
-    input(type='text' value='#{product.name}' name="name")
+form(method="POST" action="/articles" enctype="application/x-www-form-urlencoded")#form1
+  input(type="hidden" name="_method" value="POST")
+  p title:
+    input(type='text' name="title")
   br
-  p price:
-    input(type='text' value='#{product.price}' name="price")
+  p body:
+    input(type='text' name="body")
   br
-  p inventory:
-    input(type='text' value='#{product.inventory}' name="inventory")
+  p author:
+    input(type='text' name="author")
   br
   button(type="submit" form="form1" value="Submit")#submit Submit

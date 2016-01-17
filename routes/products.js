@@ -51,6 +51,7 @@ router.route('/:id')
       res.send({'success': false});
     }
   });
+
 router.route('/:id/edit')
   .get(function(req, res){
     res.render('products/edit', {

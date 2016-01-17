@@ -40,9 +40,17 @@ router.route('/:title')
       res.send({'success': false});
     }
   });
-router.route('/:title/edit')
-  .post(function(req, res){
 
+router.route('/:title/edit')
+  .get(function(req, res){
+    res.render('articles/edit', {
+      articles : articlesMod.getByTitle(req.params.title)
+    });
+  });
+
+router.route('/new')
+  .get(function(req, res){
+    res.render('articles/new');
   });
 
 module.exports = router;
