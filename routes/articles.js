@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var articlesMod = require( './../db/articles.js' );
+var articlesMiddleware = require( './../middleware/articlesPayload' );
 
 router.use(bodyParser.urlencoded({ extended : true }));
+
+router.use( articlesMiddleware );
 
 router.route('/')
   .get(function(req, res){
@@ -12,7 +15,7 @@ router.route('/')
     });
   })
   .post(function(req, res){
-    if(articlesMod.keys.indexOf(req.body.name) === -1){
+    if(articlesMod.getByTitle(req.body.title) === undefined){
       articlesMod.add( req.body );
       res.send({ "success": true });
     } else {
@@ -32,6 +35,7 @@ router.route('/:title')
     }
     res.send( { 'success' : false } );
   })
+
   .delete( function(req, res){
     if(articlesMod.all().indexOf(articlesMod.getById(parseInt(req.params.title))) !== -1){
       articlesMod.deleteById(req.params.id);

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var productMod = require( './../db/products.js' );
+var productsMiddleware = require( './../middleware/productsPayload' );
 
 router.use(bodyParser.urlencoded({ extended : true }));
 
@@ -13,6 +14,8 @@ function bodyReqinTransformerBrah( req, res, next ) {
   }
   next();
 }
+
+router.use( productsMiddleware );
 
 router.route('/')
   .get(function(req, res){
@@ -44,7 +47,7 @@ router.route('/:id')
     res.send( { 'success' : false } );
   })
   .delete( function(req, res){
-    if(productMod.products.indexOf(productMod.getById(parseInt(req.params.id))) !== -1){
+    if(productMod.all().indexOf(productMod.getById(parseInt(req.params.id))) !== -1){
       productMod.deleteById(req.params.id);
       res.send({'success': true});
     } else {
