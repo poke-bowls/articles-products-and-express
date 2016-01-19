@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
-
+var fs = require('fs');
+var moment = require('moment');
 app.use(bodyParser.urlencoded({ extended : true }));
 
 //Middleware
@@ -19,6 +20,8 @@ app.use( methodOverride(function( req, res ) {
     return method;
   // }
 }));
+
+app.use(require('./middleware/analytics.js'));
 
 app.use('/products', require('./routes/products.js'));
 app.use('/articles', require('./routes/articles.js'));
