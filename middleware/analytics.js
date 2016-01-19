@@ -14,8 +14,7 @@ module.exports = function(req, res, next){
     } else {
       fs.appendFile('./logs/' + date + ".log",
         (req.method + " " + req.path + " " +  moment().format('MMMM Do YYYY, h:mm:ss a') + " " +  JSON.stringify(req.headers) + "\n\n"),
-        function(err){
-        });
+        function(err){});
     }
     next();
   });
