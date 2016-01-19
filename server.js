@@ -23,8 +23,10 @@ app.use( methodOverride(function( req, res ) {
 
 app.use(require('./middleware/analytics.js'));
 
+app.use(require('./middleware/do-not-track-check.js'));
+
 app.use('/products', require('./routes/products.js'));
-app.use('/articles', require('./routes/articles.js'));
+app.use('/articles', require('./middleware/check_article_version.js'), require('./routes/articles.js'));
 
 var server = app.listen(7777, function(){
   console.log("server listening at ", server.address());
