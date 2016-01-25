@@ -1,21 +1,21 @@
 module.exports = (function(){
   var products = [{
-    name: "fat cat",
-    price: 5000,
-    inventory: 3,
-    id: 1
-  },
-  {
-    name: "fat child",
-    price: 1000,
-    inventory:1,
-    id: 2
-  },
-  {
-    name: "fat meatwad",
-    price: 20,
-    inventory: 50,
-    id: 3
+  //   name: "fat cat",
+  //   price: 5000,
+  //   inventory: 3,
+  //   id: 1
+  // },
+  // {
+  //   name: "fat child",
+  //   price: 1000,
+  //   inventory:1,
+  //   id: 2
+  // },
+  // {
+  //   name: "fat meatwad",
+  //   price: 20,
+  //   inventory: 50,
+  //   id: 3
   }];
   var counter = 0;
   var keys = [];

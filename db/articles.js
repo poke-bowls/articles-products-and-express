@@ -1,15 +1,16 @@
 module.exports = (function(){
   var articles = [{
-    title: "fat cat",
-    author: "Dr. Seuss",
-    urlTitle: 1
-  },
-    {title: "fat cat",
-    author: "Dr. Seuss",
-    urlTitle: 2},
-    {title: "fat cat",
-    author: "Dr. Seuss",
-    urlTitle: 3}];
+  //   title: "fat cat",
+  //   author: "Dr. Seuss",
+  //   urlTitle: 1
+  // },
+  //   {title: "fat cat",
+  //   author: "Dr. Seuss",
+  //   urlTitle: 2},
+  //   {title: "fat cat",
+  //   author: "Dr. Seuss",
+  //   urlTitle: 3
+  }];
 
   var counter = 0;
   function _all(){
