@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/poke-bowls/articles-products-and-express#readme",
   "dependencies": {
+    "bluebird": "^3.1.4",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "method-override": "^2.3.5",
-    "moment": "^2.11.1"
+    "moment": "^2.11.1",
+    "pg-promise": "^3.0.6"
   }
 }

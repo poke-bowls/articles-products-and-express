@@ -5,6 +5,53 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var moment = require('moment');
 
+
+//configure database connection
+var cn = {
+  host : 'localhost', //default server name
+  port : 5432, //default port for psql
+  database : 'articles_products', //database you are connecting to, change this
+  user : 'mick'
+};
+
+var promise = require( 'bluebird' );
+var options = {
+  promiselib : promise
+  // default promise library
+};
+var pgp = require( 'pg-promise' )( options );
+
+var db = pgp( cn );
+
+//select all of our users from the DB
+db.query("SELECT * FROM users", true)
+    .then(function (data) {
+        // success;
+        console.log( data );
+    })
+    .catch(function (error) {
+        // error;
+    });
+
+//sample insert
+// db.one("insert into users(id, username, first_name, last_name) values( default, $1, $2, $3) returning id",
+//     ['poopoopants2', 'Joe', 'Dingus'])
+//     .then(function (data) {
+//         console.log(data.id); // print new user id;
+//     })
+//     .catch(function (error) {
+//         console.log("ERROR:", error); // print error;
+//     });
+
+// delete all inactive users;
+// db.result("delete from users where id = 50001", false)
+//     .then(function (result) {
+//         console.log(result.rowCount); // print how many records were deleted;
+//     })
+//     .catch(function (error) {
+//         console.log("ERROR:", reason); // print error;
+//     });
+
 app.use(bodyParser.urlencoded({ extended : true }));
 
 //Middleware
