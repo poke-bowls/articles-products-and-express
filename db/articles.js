@@ -1,3 +1,5 @@
+var db = require('./../articles_products.js');
+
 module.exports = (function(){
   var articles = [{
   //   title: "fat cat",
@@ -12,10 +14,13 @@ module.exports = (function(){
   //   urlTitle: 3
   }];
 
-  var counter = 0;
-  function _all(){
-    return articles;
-  }
+  var _all = function(){
+    return new Promise(function( resolve, reject ){
+      db.query( 'select * from articles' )
+      .then( resolve )
+      .catch( reject );
+    });
+  };
 
   function _add( obj ) {
     if( articles.every( function( element ) {

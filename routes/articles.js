@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var articlesMod = require( './../db/articles.js' );
 var articlesMiddleware = require( './../middleware/articlesPayload' );
+var db = require( './../articles_products.js' );
 
 router.use(bodyParser.urlencoded({ extended : true }));
 
@@ -10,8 +11,14 @@ router.use( articlesMiddleware );
 
 router.route('/')
   .get(function(req, res){
-    res.render('articles/index', {
-      articles : articlesMod.all()
+    articlesMod.all()
+    .then(function(data){
+      res.render('articles/index', {
+        articles : data
+      });
+    })
+    .catch(function(err){
+      res.send(err);
     });
   })
   .post(function(req, res){
