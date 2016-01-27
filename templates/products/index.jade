@@ -2,8 +2,25 @@ extends ./../layout
 
 block content
 
-  h1 These are our products
+  h1 PRODUCTS:
+  form(method="GET" action="/products/" enctype="application/x-www-form-urlencoded")#form1
+  input(type="hidden" name="_method" value="GET")
+  button(type="submit" form="form1" value="Submit")#submit Find product by Id
+  input(type='text' value='Id' name="Id")
+
+  form(method="GET" action="/products/new" enctype="application/x-www-form-urlencoded")#form2
+  input(type="hidden" name="_method" value="GET")
+  button(type="submit" form="form2" value="Submit")#submit Add a product
+
+  form(method="POST" action="/products" enctype="application/x-www-form-urlencoded")#form3
+  input(type="hidden" name="_method" value="DELETE")
+  input(type="hidden" name="name" value="name")
+  input(type="hidden" name="price" value="1")
+  input(type="hidden" name="inventory" value="1")
+  button(type="submit" form="form3" value="Submit")#submit Delete product by Id
+  input(type='text' value='Id' name="productid")
+
   ul
     each product in products
       li
-        a(href="/products") Grab a #{product.name} for just $#{product.id} while you can! There's only #{product.inventory} left!
+        a(href="/products") #{product.name} : #{product.inventory} In stock! Query a clerk for item##{product.id} view product details!

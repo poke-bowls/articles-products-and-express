@@ -19,7 +19,7 @@ module.exports = (function(){
   //   inventory: 50,
   //   id: 3
   }];
-  var keys = [];
+  // var keys = [];
   function _all(){
     return new Promise(function( resolve, reject ){
       db.query( 'select * from products' )
@@ -47,50 +47,57 @@ module.exports = (function(){
     });
   }
 
-  function _getByName( name ) {
-    for( var k = 0; k < products.length; k++ ) {
-      if( products[k].name === name ) {
-        return products[k];
-      }
-    }
+  // function _getByName( name ) {
+  //   for( var k = 0; k < products.length; k++ ) {
+  //     if( products[k].name === name ) {
+  //       return products[k];
+  //     }
+  //   }
+  // }
+
+  function _getById( id ) {
+    // for( var k = 0; k < products.length; k++ ) {
+    //   if( products[k].id === number ) {
+    //     return products[k];
+    //   }
+    // }
+    return new Promise(function( resolve, reject ){
+      db.query( 'select * from products where id = $1', [id] )
+      .then(resolve)
+      .catch(reject);
+    });
   }
 
-  function _getById( number ) {
-    for( var k = 0; k < products.length; k++ ) {
-      if( products[k].id === number ) {
-        return products[k];
-      }
-    }
+  // function _editByName( obj ) {
+  //   var changeIt = this.getByName( obj.name );
+  //   for( var key in obj ) {
+  //     changeIt[key] = obj[key];
+  //   }
+  //   return changeIt;
+  // }
+
+  function _editById( obj, objId ) {
+    // var changeIt = this.getById( obj.id );
+    // for( var key in obj ) {
+    //   changeIt[key] = obj[key];
+    // }
+    // return changeIt;
+    return db.query( 'update products set name = $1, price = $2, inventory = $3 where id = $4', [obj.name, obj.price, obj.inventory, objId]);
   }
 
-  function _editByName( obj ) {
-    var changeIt = this.getByName( obj.name );
-    for( var key in obj ) {
-      changeIt[key] = obj[key];
-    }
-    return changeIt;
-  }
-
-  function _editById( obj ) {
-    var changeIt = this.getById( obj.id );
-    for( var key in obj ) {
-      changeIt[key] = obj[key];
-    }
-    return changeIt;
-  }
-
-  function _deleteById( number ) {
-    products.splice(products.indexOf(this.getById(number), 1));
+  function _deleteById( id ) {
+    // products.splice(products.indexOf(this.getById(number), 1));
+    return db.none( 'delete from products where id = $1', [id] );
   }
 
   return {
     all: _all,
-    keys: keys,
+    // keys: keys,
     add: _add,
-    getByName: _getByName,
-    editByName: _editByName,
+    // getByName: _getByName,
+    // editByName: _editByName,
     getById: _getById,
-    editById: _editById,
+    edit: _editById,
     deleteById: _deleteById
   };
 })();

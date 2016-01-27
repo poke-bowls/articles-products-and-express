@@ -7,6 +7,7 @@ var db = require( './../articles_products.js' );
 
 router.use(bodyParser.urlencoded({ extended : true }));
 
+//Middleware parses all inputs except 'name' to integers
 function bodyReqinTransformerBrah( req, res, next ) {
   for( var keys in req.body ) {
     if( keys !== 'name' ) {
@@ -56,29 +57,54 @@ router.route('/')
 
 router.route('/:id')
   .put( bodyReqinTransformerBrah, function( req, res ) {
-    for( var k = 0; k < productMod.all().length; k++ ) {
-      if( parseInt(req.params.id) === productMod.all()[k].id ) {
-        for( var keys in req.body ) {
-          productMod.all()[k][keys] = req.body[keys];
-        }
-        return res.send( { 'success' : true } );
-      }
-    }
-    res.send( { 'success' : false } );
+    // for( var k = 0; k < productMod.all().length; k++ ) {
+    //   if( parseInt(req.params.id) === productMod.all()[k].id ) {
+    //     for( var keys in req.body ) {
+    //       productMod.all()[k][keys] = req.body[keys];
+    //     }
+    //     return res.send( { 'success' : true } );
+    //   }
+    // }
+    // res.send( { 'success' : false } );
+    productMod.edit( req.body, req.params.id )
+    .then(function(data){
+      res.redirect( '/' );
+    })
+    .catch(function(data){
+      console.log(err);
+    });
   })
   .delete( function(req, res){
-    if(productMod.all().indexOf(productMod.getById(parseInt(req.params.id))) !== -1){
-      productMod.deleteById(req.params.id);
-      res.send({'success': true});
-    } else {
-      res.send({'success': false});
-    }
+    // if(productMod.all().indexOf(productMod.getById(parseInt(req.params.id))) !== -1){
+    //   productMod.deleteById(req.params.id);
+    //   res.send({'success': true});
+    // } else {
+    //   res.send({'success': false});
+    // }
+
+    console.log(req.body);
+    productMod.deleteById( req.body.productid )
+    .then(function(data){
+      res.redirect( '/' );
+    })
+    .catch(function(err){
+      res.redirect('/');
+    });
   });
 
 router.route('/:id/edit')
   .get(function(req, res){
-    res.render('products/edit', {
-      product : productMod.getById(parseInt(req.params.id))
+    // res.render('products/edit', {
+    //   product : productMod.getById(parseInt(req.params.id))
+    // });
+    productMod.getById(parseInt(req.params.id))
+    .then(function(data){
+      res.render('products/edit', {
+        product : data[0]
+      });
+    })
+    .catch(function(err){
+      console.log(err);
     });
   });
 
