@@ -1,3 +1,5 @@
+var db = require('./../articles_products.js');
+
 module.exports = (function(){
   var products = [{
   //   name: "fat cat",
@@ -17,21 +19,32 @@ module.exports = (function(){
   //   inventory: 50,
   //   id: 3
   }];
-  var counter = 0;
   var keys = [];
   function _all(){
-    return products;
+    return new Promise(function( resolve, reject ){
+      db.query( 'select * from products' )
+      .then( resolve )
+      .catch( reject );
+    });
   }
 
   function _add( obj ) {
-    if( products.every( function( element ) {
-      return element.name !== obj.name;
-    })) {
-      obj.id = ++counter;
-      products.push( obj );
-      keys.push(obj.name);
-      return products;
-    }
+    // if( products.every( function( element ) {
+    //   return element.name !== obj.name;
+    // })) {
+    //   obj.id = ++counter;
+    //   products.push( obj );
+    //   keys.push(obj.name);
+    //   return products;
+    // }
+    var name = obj.name;
+    var price = obj.price;
+    var inventory = obj.inventory;
+    return new Promise(function( resolve, reject ){
+      db.one( 'insert into products (id, name, price, inventory) values(default, $1, $2, $3) returning id', [name, price, inventory])
+       .then(resolve)
+      .catch(reject);
+    });
   }
 
   function _getByName( name ) {

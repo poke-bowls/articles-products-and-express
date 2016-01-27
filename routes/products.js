@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var productMod = require( './../db/products.js' );
 var productsMiddleware = require( './../middleware/productsPayload' );
+var db = require( './../articles_products.js' );
 
 router.use(bodyParser.urlencoded({ extended : true }));
 
@@ -18,20 +19,39 @@ function bodyReqinTransformerBrah( req, res, next ) {
 router.use( productsMiddleware );
 
 router.route('/')
+  // .get(function(req, res){
+  //   res.render('products/index', {
+  //     products : productMod.all()
+  //   });
+  // })
   .get(function(req, res){
+    productMod.all()
+    .then(function(data){
     res.render('products/index', {
-      products : productMod.all()
+        products : data
+      });
+    })
+    .catch(function(err){
+    res.send(err);
     });
   })
+
   .post(function(req, res){
-    if(productMod.keys.indexOf(req.body.name) === -1){
+    // if(productMod.keys.indexOf(req.body.name) === -1){
 
-      productMod.add( req.body );
+    //   productMod.add( req.body );
 
-      res.send({ "success": true });
-    } else {
-      res.send({ "success": false });
-    }
+    //   res.send({ "success": true });
+    // } else {
+    //   res.send({ "success": false });
+    // }
+    productMod.add(req.body)
+    .then(function(data){
+      res.redirect('/');
+    })
+    .catch(function(err){
+      console.log(err, 'Must have unique name');
+    });
   });
 
 router.route('/:id')

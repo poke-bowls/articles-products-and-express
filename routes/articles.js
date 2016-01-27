@@ -22,12 +22,16 @@ router.route('/')
     });
   })
   .post(function(req, res){
-    if(articlesMod.getByTitle(req.body.title) === undefined){
-      articlesMod.add( req.body );
-      res.send({ "success": true });
-    } else {
-      res.send({ "success": false });
-    }
+      articlesMod.add( req.body )
+      .then(function(data){
+        res.redirect('/');
+        // res.render('articles/index', {
+        //   articles : data
+        // });
+      })
+      .catch(function(err){
+        console.log(err, 'Must have unique title');
+      });
   });
 
 router.route('/:title')

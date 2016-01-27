@@ -17,8 +17,8 @@ var db = require('./articles_products.js');
 //     });
 
 //sample insert
-// db.one("insert into articles(id, title, body, author, urlTitle) values( default, $1, $2, $3, $4) returning id",
-//     ['poopoopants', 'Ewwww', 'Dingus', 'Charmin'])
+// db.one("insert into products(id, name, price, inventory) values( default, $1, $2, $3) returning id",
+//     ['poopoopants', 100.00, 100])
 //     .then(function (data) {
 //         console.log(data.id); // print new user id;
 //     })
