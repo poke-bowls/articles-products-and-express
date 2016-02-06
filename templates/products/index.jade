@@ -12,11 +12,11 @@ block content
   input(type="hidden" name="_method" value="GET")
   button(type="submit" form="form2" value="Submit")#submit Add a product
 
-  form(method="POST" action="/products" enctype="application/x-www-form-urlencoded")#form3
+  form(method="POST" action="/products/#{product}"  enctype="application/x-www-form-urlencoded")#form3
   input(type="hidden" name="_method" value="DELETE")
-  input(type="hidden" name="name" value="name")
-  input(type="hidden" name="price" value="1")
-  input(type="hidden" name="inventory" value="1")
+  input(type="hidden" name="name")
+  input(type="hidden" name="price")
+  input(type="hidden" name="inventory")
   button(type="submit" form="form3" value="Submit")#submit Delete product by Id
   input(type='text' value='Id' name="productid")
 
